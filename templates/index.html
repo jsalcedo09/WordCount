@@ -1,9 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>WordsCount</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="/_ah/channel/jsapi"></script>
+
 </head>
 <body>
+    <div class="container">
+        <h1>WordCount</h1>
+        <p class="lead">
+            Ingrese un enlace, una profundidad y una palabra para contar el n&uacute;mero de veces
+            que dicha palabra aparece en la página y sus enlaces
+        </p>
+        <form method="post" class="form-horizontal">
+            <div class="form-group">
+                <label for="url" class="col-lg-1 control-label">URL</label>
+                <div class="col-lg-5">
+                  <input type="url" class="form-control" id="url" name="url" placeholder="URL" value="{{ url }}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="deep" class="col-lg-1 control-label">Deep</label>
+                <div class="col-lg-1">
+                  <input type="number" class="form-control" name="deep" id="deep" placeholder="Deep Number" value="{{ deep }}" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="words" class="col-lg-1 control-label">Palabras</label>
+                <div class="col-lg-5">
+                  <input type="text" class="form-control" id="words" name="words" placeholder="Comma separated words (,)" value="{{ words }}">
+                </div>
+            </div>
+            <button type="submit"  class="btn btn-primary">Search Words</button>
+        </form>
+    </div>
+    {% if token %}
+        <script>
+            channel = new goog.appengine.Channel('{{ token }}');
+            socket = channel.open();
+            socket.onopen = function() {
+                              connected = true;
+                            };
+            socket.onmessage = function(message){
 
+            };
+        </script>
+    {% endif %}
 </body>
 </html>
