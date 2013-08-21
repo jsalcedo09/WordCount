@@ -3,7 +3,7 @@ import os
 from google.appengine.ext import deferred
 import jinja2
 import webapp2
-from tasks import leer_sitio_web
+from tasks import read_web_site
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_environment = \
@@ -23,7 +23,7 @@ class MainHandler(webapp2.RequestHandler):
         context['url'] = self.request.POST.get("url")
         context['deep'] = self.request.POST.get("deep")
         context['words'] = self.request.POST.get("words")
-        deferred.defer(leer_sitio_web,context['url'],int(context['deep']), context['words'])
+        deferred.defer(read_web_site,context['url'],int(context['deep']), context['words'])
         template = jinja_environment.get_template('index.html')
         self.response.write(template.render(context))
 
