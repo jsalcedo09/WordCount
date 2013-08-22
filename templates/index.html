@@ -29,8 +29,13 @@
                   <input type="text" class="form-control" id="words" name="words" placeholder="Comma separated words (,)" value="{{ words }}">
                 </div>
             </div>
+             <input type="hidden" name="search_id" value="{{ search_id }}" />
             <button type="submit"  class="btn btn-primary">Search Words</button>
         </form>
+
+        <div id="response" class="lead" style="margin: 10px 0px">
+
+        </div>
     </div>
     {% if token %}
         <script>
@@ -42,8 +47,12 @@
             socket.onmessage = function(message){
                  console.log(message)
 	        	 jsonMessage = JSON.parse(message.data, true);
+                 response = "<div>Sites visited: "+jsonMessage.links+"</div>"
+                 for(word in jsonMessage.words){
+                     response += "<div>"+word+": "+jsonMessage.words[word]+"</div>"
+                 }
 
-
+                 document.getElementById('response').innerHTML = response
             };
         </script>
     {% endif %}
