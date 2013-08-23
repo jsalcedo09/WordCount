@@ -47,7 +47,7 @@
             socket.onmessage = function(message){
                  console.log(message)
 	        	 jsonMessage = JSON.parse(message.data, true);
-                 response = "<div>Sites visited: "+jsonMessage.links+"</div>"
+                 response = "<div>Links visited: "+jsonMessage.links+"</div>"
                  for(word in jsonMessage.words){
                      response += "<div>"+word+": "+jsonMessage.words[word]+"</div>"
                  }
