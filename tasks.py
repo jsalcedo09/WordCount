@@ -11,7 +11,7 @@ def read_web_site(url, deep, words, search_id,visited = list()):
     deep -= 1
     visited.append(url)
     increment_links(search_id,1)
-    information = {'links':memcache.get('%s-links' % search_id),
+    information = {'links':0,
                    'words':{}}
 
     logging.info("Searching for links in %s", url)
@@ -36,7 +36,7 @@ def read_web_site(url, deep, words, search_id,visited = list()):
 
     for word in words.split(','):
         information['words'].update({word:memcache.get("%s-word-%s" % (search_id, word))})
-
+    information['links'] = memcache.get('%s-links' % search_id)
     channel.send_message("%s-search" % search_id, json.dumps(information))
 
 
